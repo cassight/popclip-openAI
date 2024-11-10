@@ -23,9 +23,9 @@
     {
       "identifier:": "model",
       "label": "Model",
-      "type": "multiple",
-      "defaultValue": "gpt-3.5-turbo",
-      "values": ["gpt-3.5-turbo", "gpt-4-turbo-preview", "gpt-4-turbo"]
+      "type": "string",
+      "description": "The LLM model you want to use",
+      "defaultValue": "gpt-4o-mini"
     },
     {
       "identifier:": "prompt",
@@ -33,6 +33,13 @@
       "type": "string",
       "description": "Base prompt.",
       "defaultValue": ""
+    },
+    {
+        "identifier": "base_url",
+        "label": "BASE_URL",
+        "type": "string",
+        "description": "base_url for the service provider",
+        "defaultValue": "https://api.openai.com/v1"
     }
   ]
 }

@@ -5,6 +5,7 @@ declare type ChatGPTOptions = {
   prompt: string;
   apikey: string;
   model: string;
+  base_url: string;
 };
 
 // typescript interfaces for OpenAI API
@@ -26,7 +27,7 @@ interface Response {
 // the main chat action
 const chat: ActionFunction<ChatGPTOptions> = async (input, options) => {
   const openai = axios.create({
-    baseURL: "https://api.openai.com/v1",
+    baseURL: options.base_url,
     headers: { Authorization: `Bearer ${options.apikey}` },
   });
 
@@ -37,10 +38,11 @@ const chat: ActionFunction<ChatGPTOptions> = async (input, options) => {
   // send the whole message history to OpenAI
   try {
     const { data }: Response = await openai.post("chat/completions", {
-      model: options.model || "gpt-3.5-turbo",
+      model: options.model || "gpt-4o-mini",
       messages,
     });
-    popclip.pasteText(data.choices[0].message.content);
+    popclip.copyText(data.choices[0].message.content);
+    popclip.showText(data.choices[0].message.content);
     popclip.showSuccess();
   } catch (e) {
     popclip.showText(getErrorInfo(e));
